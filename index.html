@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegance Boutique - Женский магазин</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Elegance</span>
+                </div>
+                <div class="header-actions">
+                    <button class="search-btn" onclick="toggleSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="cart-btn" onclick="showCart()">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                    <button class="profile-btn" onclick="showProfile()">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="search-bar" id="searchBar">
+                <input type="text" placeholder="Поиск товаров..." id="searchInput">
+                <button onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Screen -->
+            <div class="screen active" id="homeScreen">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <div class="hero-content">
+                        <h1>Добро пожаловать в Elegance</h1>
+                        <p>Откройте для себя мир стиля и элегантности</p>
+                        <button class="cta-btn" onclick="showCategories()">
+                            Начать покупки
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Categories -->
+                <section class="categories">
+                    <h2>Категории</h2>
+                    <div class="category-grid">
+                        <div class="category-card" onclick="showCategory('clothing')">
+                            <div class="category-icon">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <h3>Одежда</h3>
+                            <p>Платья, блузки, юбки</p>
+                        </div>
+                        <div class="category-card" onclick="showCategory('shoes')">
+                            <div class="category-icon">
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
+                            <h3>Обувь</h3>
+                            <p>Туфли, сапоги, кроссовки</p>
+                        </div>
+                        <div class="category-card" onclick="showCategory('accessories')">
+                            <div class="category-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h3>Аксессуары</h3>
+                            <p>Сумки, украшения, ремни</p>
+                        </div>
+                        <div class="category-card" onclick="showCategory('cosmetics')">
+                            <div class="category-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h3>Косметика</h3>
+                            <p>Макияж, уход за кожей</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Featured Products -->
+                <section class="featured">
+                    <h2>Популярные товары</h2>
+                    <div class="product-grid" id="featuredProducts">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Category Screen -->
+            <div class="screen" id="categoryScreen">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 id="categoryTitle">Категория</h2>
+                </div>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="new">Новинки</button>
+                    <button class="filter-btn" data-filter="sale">Скидки</button>
+                    <button class="filter-btn" data-filter="popular">Популярные</button>
+                </div>
+                <div class="product-grid" id="categoryProducts">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Product Detail Screen -->
+            <div class="screen" id="productDetailScreen">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>Товар</h2>
+                </div>
+                <div class="product-detail" id="productDetail">
+                    <!-- Product details will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Cart Screen -->
+            <div class="screen" id="cartScreen">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>Корзина</h2>
+                </div>
+                <div class="cart-content" id="cartContent">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Итого:</span>
+                        <span class="total-price" id="totalPrice">0 ₽</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">
+                        Оформить заказ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div class="screen" id="profileScreen">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>Профиль</h2>
+                </div>
+                <div class="profile-content">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3>Гость</h3>
+                        <p>Войдите в аккаунт для доступа к личному кабинету</p>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="profile-action-btn" onclick="login()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Войти
+                        </button>
+                        <button class="profile-action-btn" onclick="register()">
+                            <i class="fas fa-user-plus"></i>
+                            Регистрация
+                        </button>
+                    </div>
+                    <div class="profile-menu">
+                        <div class="menu-item" onclick="showOrders()">
+                            <i class="fas fa-box"></i>
+                            <span>Мои заказы</span>
+                        </div>
+                        <div class="menu-item" onclick="showFavorites()">
+                            <i class="fas fa-heart"></i>
+                            <span>Избранное</span>
+                        </div>
+                        <div class="menu-item" onclick="showSettings()">
+                            <i class="fas fa-cog"></i>
+                            <span>Настройки</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="showScreen('homeScreen')">
+                <i class="fas fa-home"></i>
+                <span>Главная</span>
+            </button>
+            <button class="nav-item" onclick="showScreen('categoryScreen')">
+                <i class="fas fa-th-large"></i>
+                <span>Каталог</span>
+            </button>
+            <button class="nav-item" onclick="showScreen('cartScreen')">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Корзина</span>
+            </button>
+            <button class="nav-item" onclick="showScreen('profileScreen')">
+                <i class="fas fa-user"></i>
+                <span>Профиль</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Вход в аккаунт</h3>
+                <button class="close-btn" onclick="closeModal('loginModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="email" placeholder="Email" id="loginEmail">
+                <input type="password" placeholder="Пароль" id="loginPassword">
+                <button class="modal-btn" onclick="performLogin()">Войти</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Регистрация</h3>
+                <button class="close-btn" onclick="closeModal('registerModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" placeholder="Имя" id="registerName">
+                <input type="email" placeholder="Email" id="registerEmail">
+                <input type="password" placeholder="Пароль" id="registerPassword">
+                <button class="modal-btn" onclick="performRegister()">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
